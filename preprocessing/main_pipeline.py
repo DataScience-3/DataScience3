@@ -9,6 +9,12 @@ from scaling import scale_features
 from pca import run_pca
 import numpy as np
 import sys
+import os
+
+import pandas as pd
+from Kmeans_merge import kmeans_pipeline_from_df
+from ISO import run_ISO_plot
+
 
 def main():
     # 1. Dirty data 생성
@@ -30,6 +36,15 @@ def main():
 
     # 6. PCA
     run_pca('final_matrix.csv', 'pca_result.csv', n_components=10)
+
+
+    df_final = pd.read_csv('final_matrix.csv')
+
+    # 7. Kmeans
+    kmeans_pipeline_from_df(df_final)
+
+    # 8. ISO
+    run_ISO_plot(df_final)
 
 if __name__ == '__main__':
     main() 
